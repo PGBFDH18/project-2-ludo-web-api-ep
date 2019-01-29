@@ -1,3 +1,4 @@
-Put your source code in this folder!
+# LudoGameEngine
+A game engine for Ludo
 
-You can delete this file
+[![Build status](https://skjohansen.visualstudio.com/ByggTest/_apis/build/status/Bygg%20av%20LudoEngine)](https://skjohansen.visualstudio.com/ByggTest/_build/latest?definitionId=1)
