@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LudoWebAPI.Controllers
 {
-    [Route("api/ludogame/{id}/player")]
+    [Route("api/ludogame")]
     [ApiController]
     public class PlayerController : ControllerBase
     {
