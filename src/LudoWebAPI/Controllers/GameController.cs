@@ -40,15 +40,9 @@ namespace LudoWebAPI.Controllers
         [HttpPost]
         public int Post()
         {
-            int gameID = 0;
-
-            if (_activeGames.GetAllGameIds().Count() > gameID)
-            {
-                gameID = _activeGames.GetAllGameIds().Max() +1;
-            }
-
+            
+            int gameID = _activeGames.GetAllGameIds().Max() +1;
             _activeGames.CreateGame(gameID);
-
 
             return gameID;
         }

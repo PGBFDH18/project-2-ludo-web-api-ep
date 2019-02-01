@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LudoWebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/ludogame/{id}/player")]
     [ApiController]
     public class PlayerController : ControllerBase
     {
@@ -18,28 +18,10 @@ namespace LudoWebAPI.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        // GET: api/Player/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
 
         // POST: api/Player
         [HttpPost]
         public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT: api/Player/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
         {
         }
     }
