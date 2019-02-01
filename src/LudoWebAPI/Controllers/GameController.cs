@@ -29,7 +29,7 @@ namespace LudoWebAPI.Controllers
         [HttpGet]
         public IEnumerable<int> Get()
         {
-            return _activeGames.GetGameIds();
+            return _activeGames.GetAllGameIds();
         }
 
         // Post: api/Game/
@@ -42,12 +42,12 @@ namespace LudoWebAPI.Controllers
         {
             int gameID = 0;
 
-            if (_activeGames.GetGameIds().Count() > gameID)
+            if (_activeGames.GetAllGameIds().Count() > gameID)
             {
-                gameID = _activeGames.GetGameIds().Max() +1;
+                gameID = _activeGames.GetAllGameIds().Max() +1;
             }
 
-            _activeGames.GetGame(gameID);
+            _activeGames.CreateGame(gameID);
 
 
             return gameID;

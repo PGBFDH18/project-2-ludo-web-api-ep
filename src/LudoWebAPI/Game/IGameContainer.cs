@@ -8,8 +8,8 @@ namespace LudoWebAPI.Game
 {
     public interface IGameContainer
     {
-        List<int> GetGameIds();
-        LudoGame GetGame(int id);
+        List<int> GetAllGameIds();
+        LudoGame CreateGame(int id);
         void DeleteGame(int id);
     }
 }
