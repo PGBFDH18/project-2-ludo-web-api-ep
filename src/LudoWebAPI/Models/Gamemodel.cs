@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace LudoWebAPI.Models
 {
-    public class Gamemdoel
+    public class GameModel
     {
         public string State { get; set; }
         public int GameId { get; set; }
