@@ -111,5 +111,18 @@ namespace LudoWebAPI.Controllers
         public void DeletePlayer(int id)
         {
         }
+
+        // GET: api/Player
+        [HttpGet]
+        public IEnumerable<string> Get()
+        {
+            return new string[] { "value1", "value2" };
+        }
+
+        // POST: api/Player
+        [HttpPost]
+        public void Post([FromBody] string value)
+        {
+        }
     }
 }
