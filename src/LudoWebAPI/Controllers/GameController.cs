@@ -14,23 +14,16 @@ namespace LudoWebAPI.Controllers
     public class GameController : ControllerBase
     {
 
-        private IGameContainer _activeGames;
+        private readonly ILudoGame _LudoGame;
+        private readonly IGameContainer _games;
 
-        public void gameController(IGameContainer activeGames)
+
+        public GameController(ILudoGame ludoGame, IGameContainer games)
         {
-            _activeGames = new GameContainer(new Diece());
+            _games = games;
+            _LudoGame = ludoGame;
         }
 
-        // GET: api/Game
-        /// <summary>
-        /// Get all active games
-        /// </summary>
-        /// <returns>List of game IDs</returns>
-        [HttpGet]
-        public IEnumerable<int> Get()
-        {
-            return _activeGames.GetAllGameIds();
-        }
 
         // Post: api/Game/
         /// <summary>
@@ -38,16 +31,34 @@ namespace LudoWebAPI.Controllers
         /// </summary>
         /// <returns>A new game</returns>
         [HttpPost]
-        public int Post()
+        public int PostGame()
         {
-            int gameID = _activeGames.GetAllGameIds().Max() +1;
-            _activeGames.CreateGame(gameID);
+            int gameID = _games.GetAllGameIds().Max() + 1;
+            _games.CreateGame(gameID);
 
             return gameID;
         }
 
+        // GET: api/Game
         /// <summary>
-        /// visar information om spelet
+        /// Get all games
+        /// </summary>
+        /// <returns>List of game IDs</returns>
+        [HttpGet]
+        public IEnumerable<int> GetGames()
+        {
+            return _games.GetAllGameIds();
+        }
+
+        // DELETE: api/ApiWithActions/5
+        [HttpDelete("{gameid}")]
+        public void DeleteGame(int gameId)
+        {
+            _games.DeleteGame(gameId);
+        }
+
+        /// <summary>
+        /// visar pjäsernas positioner
         /// </summary>
         /// <param name="gameId"></param>
         /// <returns></returns>
@@ -55,7 +66,7 @@ namespace LudoWebAPI.Controllers
         [HttpGet("{gameid}")]
         public GameModel Get(int gameId)
         {
-            LudoGame game = _activeGames[gameId];
+            LudoGame game = _games[gameId];
             int numberOfPlayers = game.GetPlayers().Count();
             var currentPlayer = game.GetCurrentPlayer();
             return new GameModel()
@@ -80,11 +91,25 @@ namespace LudoWebAPI.Controllers
 
         }
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{gameid}")]
-        public void Delete(int gameId)
+
+        // GET: api/PlayerId
+        [HttpGet("{id}", Name = "Get")]
+        public void GetPlayer(int id)
         {
-            _activeGames.DeleteGame(gameId);
+
+
+        }
+
+        // PUT: api/PlayerId
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] string value)
+        {
+        }
+
+        // DELETE: api/Playerid
+        [HttpDelete("{id}")]
+        public void DeletePlayer(int id)
+        {
         }
     }
 }

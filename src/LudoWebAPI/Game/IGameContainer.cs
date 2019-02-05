@@ -15,6 +15,6 @@ namespace LudoWebAPI.Game
 
         List<int> GetAllGameIds();
         LudoGame CreateGame(int id);
-        void DeleteGame(int id);
+        bool DeleteGame(int id);
     }
 }

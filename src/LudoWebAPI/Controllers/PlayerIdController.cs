@@ -14,24 +14,5 @@ namespace LudoWebAPI.Controllers
     {
         
 
-        // GET: api/PlayerId
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            
-
-        }
-
-        // PUT: api/PlayerId
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/Playerid
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

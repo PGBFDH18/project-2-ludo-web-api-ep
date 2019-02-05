@@ -1,51 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using LudoGameEngine;
 
 namespace LudoWebAPI.Game
 {
     public class GameContainer : IGameContainer
     {
-        private Dictionary<int, LudoGame> listOfGames;
-        private IDiece diece;
+        private Dictionary<int, LudoGame> games;
 
-        public GameContainer(IDiece di)
+        public GameContainer()
         {
-            listOfGames = new Dictionary<int, LudoGame>();
-
+            games = new Dictionary<int, LudoGame>();
         }
 
         public LudoGame this[int gameId]
         {
             get
             {
-                if (!listOfGames.ContainsKey(gameId))
+                if (!games.ContainsKey(gameId))
                 {
-                    CreateGame(gameId);
+                    games.Add(gameId, new LudoGame(new Diece()));
                 }
-                return listOfGames[gameId];
+                return games[gameId];
             }
         }
 
         public LudoGame CreateGame(int gameId)
         { 
-            if (!listOfGames.ContainsKey(gameId))
+            if (!games.ContainsKey(gameId))
             {
-                listOfGames.Add(gameId, new LudoGame(new Diece()));
+                games.Add(gameId, new LudoGame(new Diece()));
             }
-            return listOfGames[gameId];
+            return games[gameId];
         }
 
-        public void DeleteGame(int gameId)
+        public bool DeleteGame(int gameId)
         {
-            listOfGames.Remove(gameId);
+            return games.Remove(gameId);
         }
 
         public List<int> GetAllGameIds()
         {
-            return listOfGames.Select(d => d.Key).ToList();
+            return games.Select(d => d.Key).ToList();
         }
     }
 }
