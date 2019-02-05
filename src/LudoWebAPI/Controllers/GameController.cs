@@ -91,29 +91,52 @@ namespace LudoWebAPI.Controllers
 
         }
 
+            public Player GetPlayerDetails(string gameId, int playerId)
+            {
+                return _games.GetGame(gameId).GetPlayers().FirstOrDefault(x => x.PlayerId == playerId);
+            }
 
-        // GET: api/PlayerId
-        [HttpGet("{id}", Name = "Get")]
-        public void GetPlayer(int id)
-        {
+            [HttpPut("{gameId}/players/{playerId}")]
+            public Player UpdatePlayer(string gameId, int playerId, string name, PlayerColor color)
+            {
+                var player = _games.GetGame(gameId).GetPlayers().FirstOrDefault(x => x.PlayerId == playerId);
+                player.Name = name;
+                player.PlayerColor = color;
+                return player;
+            }
 
 
+            [HttpDelete("{gameId}/players/{playerId}")]
+            public bool DeletePlayer(string gameId, int playerId)
+            {
+                var player = _games.GetGame(gameId).GetPlayers().FirstOrDefault(x => x.PlayerId == playerId);
+                return _games.GetGame(gameId).GetPlayers().Remove(player);
+            }
         }
+    }
 
-        // PUT: api/PlayerId
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+    /* GET: api/PlayerId
+    [HttpGet("{id}", Name = "Get")]
+    public void GetPlayer(int id)
+    {
 
-        // DELETE: api/Playerid
-        [HttpDelete("{id}")]
-        public void DeletePlayer(int id)
-        {
-        }
 
-        // GET: api/Player
-        [HttpGet]
+    }
+
+    // PUT: api/PlayerId
+    [HttpPut("{id}")]
+    public void Put(int id, [FromBody] string value)
+    {
+    }
+
+    // DELETE: api/Playerid
+    [HttpDelete("{id}")]
+    public void DeletePlayer(int id)
+    {
+    }*/
+
+    // GET: api/Player
+    [HttpGet]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
