@@ -1,0 +1,75 @@
+Fia/Ludo
+När man startar spelet så skall man lätt kunna välja antalet spelare mellan 2-4 spelare.
+Alla spelare skall ha förmågan att välja den “färg” som dem vill använda.
+Kasta tärningen om det blir en sexa så skall man ha förmågan att välja om man vill gå med en pjäs eller gå ut med en ny pjäs.
+Om inga pjäser är i spel och man slår något som inte är en 6 så skall turen hoppas över.
+Spelet måste kunna hålla reda på vart pjäserna är. 
+Spelet måste hålla reda på pjäsens färg genom hela omgången.
+Varje spelare startar med fyra pjäser. 
+Låta pjäserna gå in i mitten när dom anländer på den rutan efter ett varv på brädet. 
+Man skall lätt kunna kolla reglerna i spelet, dem skall visas i ett annat fönster. 
+Om en spelare hamnar på samma rutan som en annan så skall man kunna “Knuffa” ut dem och deras pjäs skickas tillbaka till den spelares “hem”.
+Spel planen skall vara “färgkoordinerad” och vissa vilken spelare som kan gå i mål vart. 
+när spelar har nått sina fyra pjäser i mitten så vinner den personen spelet
+APIet skall kunna lagra spel så att man kan återuppta dem när man vill på ett lätt sätt
+
+
+
+
+
+
+/ludo:
+  post:
+    Summary: Gör ett nytt spel
+
+   get:
+    Summary: Visar en lista av spelen
+
+  put:
+    Summary: N/A
+
+  delete:
+    Summary: N/A
+
+/ludo/{gameID}
+  post:
+    Summary: N/A
+
+   get:
+    Summary: Visar information om spelet
+
+  put:
+    Summary: Flyttar positionen av spel pjäsen
+
+  delete:
+    Summary: Ta bort spelet
+
+/ludo/{gameID}/player
+  post:
+    Summary: Lägg till en spelare till spelet
+
+   get:
+    Summary: Lista all aktiva spelare i spelet
+
+  put:
+    Summary: N/A
+
+  delete:
+    Summary: N/A
+
+/ludo/{gameID}/player/{playerID}
+  post:
+    Summary: N/A
+
+   get:
+    Summary: Detaljerad information om spelaren
+
+  put:
+    Summary: Ändra namn och/eller färg
+
+  delete:
+    Summary: Ta bort spelaren från spelet
+
+
+Vi använde Stephans Förslag som underlag när vi gjorde denna.
+

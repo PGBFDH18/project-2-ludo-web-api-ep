@@ -90,14 +90,14 @@ namespace LudoWebAPI.Controllers
 
 
         }
-
-            public Player GetPlayerDetails(string gameId, int playerId)
+        [HttpGet("{gameId}/players/{playerId}")]
+        public Player GetPlayerDetails(string gameId, int playerId)
             {
                 return _games.GetGame(gameId).GetPlayers().FirstOrDefault(x => x.PlayerId == playerId);
             }
 
-            [HttpPut("{gameId}/players/{playerId}")]
-            public Player UpdatePlayer(string gameId, int playerId, string name, PlayerColor color)
+        [HttpPut("{gameId}/players/{playerId}")]
+        public Player UpdatePlayer(string gameId, int playerId, string name, PlayerColor color)
             {
                 var player = _games.GetGame(gameId).GetPlayers().FirstOrDefault(x => x.PlayerId == playerId);
                 player.Name = name;
@@ -106,8 +106,8 @@ namespace LudoWebAPI.Controllers
             }
 
 
-            [HttpDelete("{gameId}/players/{playerId}")]
-            public bool DeletePlayer(string gameId, int playerId)
+        [HttpDelete("{gameId}/players/{playerId}")]
+        public bool DeletePlayer(string gameId, int playerId)
             {
                 var player = _games.GetGame(gameId).GetPlayers().FirstOrDefault(x => x.PlayerId == playerId);
                 return _games.GetGame(gameId).GetPlayers().Remove(player);
