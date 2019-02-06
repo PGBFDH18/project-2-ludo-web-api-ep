@@ -115,37 +115,64 @@ namespace LudoWebAPI.Controllers
         }
     }
 
-    /* GET: api/PlayerId
-    [HttpGet("{id}", Name = "Get")]
-    public void GetPlayer(int id)
-    {
+/* GET: api/PlayerId
+[HttpGet("{id}", Name = "Get")]
+public void GetPlayer(int id)
+{
 
 
-    }
+}
 
-    // PUT: api/PlayerId
-    [HttpPut("{id}")]
-    public void Put(int id, [FromBody] string value)
-    {
-    }
+// PUT: api/PlayerId
+[HttpPut("{id}")]
+public void Put(int id, [FromBody] string value)
+{
+}
 
-    // DELETE: api/Playerid
-    [HttpDelete("{id}")]
-    public void DeletePlayer(int id)
-    {
-    }*/
+// DELETE: api/Playerid
+[HttpDelete("{id}")]
+public void DeletePlayer(int id)
+{
+}*/
 
-    // GET: api/Player
-    [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+             // GET: api/Player
+            [HttpGet("{gameId}/players")]
+            public IEnumerable<LudoPlayer> Get(int gameId)
+            {
+                return ludoGames[gameId].GetPlayers().Select(p =>
+                    new LudoPlayer()
+                    {
+                        Color = p.PlayerColor.ToString(),
+                        Id = p.PlayerId,
+                        Name = p.Name
+                    }
+                    );
+            }
+            [HttpPost("{gameId}/players")]
+            public ActionResult Post(int gameId, [FromBody] LudoPlayer player)
+            {
+                PlayerColor playerColor = ParseColor(player.Color);
+                try
+                {
+                    ludoGames[gameId].AddPlayer(player.Name, playerColor);
+                    return Ok();
+                }
+                catch
+                {
+                    return BadRequest("Unable to add player");
+                }
+            }
 
-        // POST: api/Player
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
+            private PlayerColor ParseColor(string color)
+            {
+             switch (color.Trim().ToLower())
+            {
+            case "red": return PlayerColor.Red;
+            case "green": return PlayerColor.Green;
+            case "blue": return PlayerColor.Blue;
+            case "yellow": return PlayerColor.Yellow;
+            }
+                throw new Exception($"Color {color} is unknown, the suported colors are: red, green, blue and yellow");
+            }
     }
 }
