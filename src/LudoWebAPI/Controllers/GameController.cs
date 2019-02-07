@@ -112,67 +112,46 @@ namespace LudoWebAPI.Controllers
                 var player = _games.GetGame(gameId).GetPlayers().FirstOrDefault(x => x.PlayerId == playerId);
                 return _games.GetGame(gameId).GetPlayers().Remove(player);
             }
+
+
+        // GET: api/Player
+        [HttpGet("{gameId}/players")]
+        public IEnumerable<LudoPlayer> Get(int gameId)
+        {
+            return ludoGames[gameId].GetPlayers().Select(p =>
+                new LudoPlayer()
+                {
+                    Color = p.PlayerColor.ToString(),
+                    Id = p.PlayerId,
+                    Name = p.Name
+                }
+                );
+        }
+        [HttpPost("{gameId}/players")]
+        public ActionResult Post(int gameId, [FromBody] LudoPlayer player)
+        {
+            PlayerColor playerColor = ParseColor(player.Color);
+            try
+            {
+                ludoGames[gameId].AddPlayer(player.Name, playerColor);
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest("Unable to add player");
+            }
+        }
+
+        private PlayerColor ParseColor(string color)
+        {
+            switch (color.Trim().ToLower())
+            {
+                case "red": return PlayerColor.Red;
+                case "green": return PlayerColor.Green;
+                case "blue": return PlayerColor.Blue;
+                case "yellow": return PlayerColor.Yellow;
+            }
+            throw new Exception($"Color {color} is unknown, the suported colors are: red, green, blue and yellow");
         }
     }
-
-/* GET: api/PlayerId
-[HttpGet("{id}", Name = "Get")]
-public void GetPlayer(int id)
-{
-
-
-}
-
-// PUT: api/PlayerId
-[HttpPut("{id}")]
-public void Put(int id, [FromBody] string value)
-{
-}
-
-// DELETE: api/Playerid
-[HttpDelete("{id}")]
-public void DeletePlayer(int id)
-{
-}*/
-
-             // GET: api/Player
-            [HttpGet("{gameId}/players")]
-            public IEnumerable<LudoPlayer> Get(int gameId)
-            {
-                return ludoGames[gameId].GetPlayers().Select(p =>
-                    new LudoPlayer()
-                    {
-                        Color = p.PlayerColor.ToString(),
-                        Id = p.PlayerId,
-                        Name = p.Name
-                    }
-                    );
-            }
-            [HttpPost("{gameId}/players")]
-            public ActionResult Post(int gameId, [FromBody] LudoPlayer player)
-            {
-                PlayerColor playerColor = ParseColor(player.Color);
-                try
-                {
-                    ludoGames[gameId].AddPlayer(player.Name, playerColor);
-                    return Ok();
-                }
-                catch
-                {
-                    return BadRequest("Unable to add player");
-                }
-            }
-
-            private PlayerColor ParseColor(string color)
-            {
-             switch (color.Trim().ToLower())
-            {
-            case "red": return PlayerColor.Red;
-            case "green": return PlayerColor.Green;
-            case "blue": return PlayerColor.Blue;
-            case "yellow": return PlayerColor.Yellow;
-            }
-                throw new Exception($"Color {color} is unknown, the suported colors are: red, green, blue and yellow");
-            }
     }
-}
