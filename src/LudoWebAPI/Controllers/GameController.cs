@@ -90,6 +90,8 @@ namespace LudoWebAPI.Controllers
 
 
         }
+
+
         [HttpGet("{gameId}/players/{playerId}")]
         public Player GetPlayerDetails(string gameId, int playerId)
             {
@@ -127,6 +129,8 @@ namespace LudoWebAPI.Controllers
                 }
                 );
         }
+
+        // POST: ludo/Player
         [HttpPost("{gameId}/players")]
         public ActionResult Post(int gameId, [FromBody] LudoPlayer player)
         {
