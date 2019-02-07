@@ -95,20 +95,19 @@ namespace LudoWebAPI.Controllers
 
 
         [HttpGet("{gameId}/players/{playerId}")]
-        public Player GetPlayerDetails(string gameId, int playerId)
+        public Player GetPlayerDetails(int gameId, int playerId)
             {
-            //return _games.GetGame(gameId).GetPlayers().FirstOrDefault(x => x.PlayerId == playerId);
-            throw new NotImplementedException();
+            return _games.GetGame(gameId).GetPlayers().FirstOrDefault(x => x.PlayerId == playerId);
             }
 
         [HttpPut("{gameId}/players/{playerId}")]
-        public Player UpdatePlayer(string gameId, int playerId, string name, PlayerColor color)
+        public Player UpdatePlayer(int gameId, int playerId, string name, PlayerColor color)
             {
-            throw new NotImplementedException();
-            //var player = _games.GetGame(gameId).GetPlayers().FirstOrDefault(x => x.PlayerId == playerId);
-            //player.Name = name;
-            //    player.PlayerColor = color;
-            //    return player;
+   
+            Player player = _games.GetGame(gameId).GetPlayers().FirstOrDefault(x => x.PlayerId == playerId);
+            player.Name = name;
+            player.PlayerColor = color;
+            return player;
             }
 
 

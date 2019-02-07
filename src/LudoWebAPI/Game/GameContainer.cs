@@ -6,6 +6,8 @@ namespace LudoWebAPI.Game
 {
     public class GameContainer : IGameContainer
     {
+
+
         private Dictionary<int, LudoGame> games;
 
         public GameContainer()
@@ -43,5 +45,15 @@ namespace LudoWebAPI.Game
         {
             return games.Select(d => d.Key).ToList();
         }
+
+        public LudoGame GetGame(int gameId)
+        {
+            if (!games.ContainsKey(gameId))
+            {
+                games.Add(gameId, new LudoGame(new Diece()));
+            }
+            return games[gameId];
+        }
+
     }
 }
