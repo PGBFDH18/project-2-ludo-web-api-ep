@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using LudoWebAPI.Game;
 using LudoWebAPI.Models;
+
+
 namespace LudoWebAPI.Controllers
 {
     [Route("api/ludogame")]
@@ -95,49 +97,53 @@ namespace LudoWebAPI.Controllers
         [HttpGet("{gameId}/players/{playerId}")]
         public Player GetPlayerDetails(string gameId, int playerId)
             {
-                return _games.GetGame(gameId).GetPlayers().FirstOrDefault(x => x.PlayerId == playerId);
+            //return _games.GetGame(gameId).GetPlayers().FirstOrDefault(x => x.PlayerId == playerId);
+            throw new NotImplementedException();
             }
 
         [HttpPut("{gameId}/players/{playerId}")]
         public Player UpdatePlayer(string gameId, int playerId, string name, PlayerColor color)
             {
-                var player = _games.GetGame(gameId).GetPlayers().FirstOrDefault(x => x.PlayerId == playerId);
-                player.Name = name;
-                player.PlayerColor = color;
-                return player;
+            throw new NotImplementedException();
+            //var player = _games.GetGame(gameId).GetPlayers().FirstOrDefault(x => x.PlayerId == playerId);
+            //player.Name = name;
+            //    player.PlayerColor = color;
+            //    return player;
             }
 
 
         [HttpDelete("{gameId}/players/{playerId}")]
         public bool DeletePlayer(string gameId, int playerId)
             {
-                var player = _games.GetGame(gameId).GetPlayers().FirstOrDefault(x => x.PlayerId == playerId);
-                return _games.GetGame(gameId).GetPlayers().Remove(player);
-            }
+            throw new NotImplementedException();
+            //var player = _games.GetGame(gameId).GetPlayers().FirstOrDefault(x => x.PlayerId == playerId);
+            //return _games.GetGame(gameId).GetPlayers().Remove(player);
+        }
 
 
         // GET: api/Player
         [HttpGet("{gameId}/players")]
-        public IEnumerable<LudoPlayer> Get(int gameId)
+        public IEnumerable<Player> Get1(int gameId)
         {
-            return ludoGames[gameId].GetPlayers().Select(p =>
-                new LudoPlayer()
-                {
-                    Color = p.PlayerColor.ToString(),
-                    Id = p.PlayerId,
-                    Name = p.Name
-                }
-                );
+            throw new NotImplementedException();
+            //return ludoGames[gameId].GetPlayers().Select(p =>
+            //    new LudoPlayer()
+            //    {
+            //        Color = p.PlayerColor.ToString(),
+            //        Id = p.PlayerId,
+            //        Name = p.Name
+            //    }
+            //    );
         }
 
         // POST: ludo/Player
         [HttpPost("{gameId}/players")]
-        public ActionResult Post(int gameId, [FromBody] LudoPlayer player)
+        public ActionResult Post(int gameId, [FromBody] PlayerModel player)
         {
             PlayerColor playerColor = ParseColor(player.Color);
             try
             {
-                ludoGames[gameId].AddPlayer(player.Name, playerColor);
+                //ludoGames[gameId].AddPlayer(player.Name, playerColor);
                 return Ok();
             }
             catch
