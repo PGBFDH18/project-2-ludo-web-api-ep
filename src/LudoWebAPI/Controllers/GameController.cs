@@ -35,16 +35,18 @@ namespace LudoWebAPI.Controllers
         [HttpPost]
         public int PostGame()
         {
-            int gameId = 0;
 
-            if (_games.GetAllGameIds().Count() > 0)
+            int gameID = _games.GetAllGameIds().Max() + 1;
+
+            _games.CreateGame(gameID);
+
+            if (_games.GetAllGameIds().Count < 1)
             {
-                gameId = _games.GetAllGameIds().Max() + 1;
+                gameID = 1;
             }
 
-            _games.CreateGame(gameId);
+            return gameID;
 
-            return gameId;
         }
 
 
@@ -61,7 +63,7 @@ namespace LudoWebAPI.Controllers
         }
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{gameid}")]
+        [HttpDelete("{gameid}")]    
         public void DeleteGame(int gameId)
         {
             _games.DeleteGame(gameId);
