@@ -35,11 +35,19 @@ namespace LudoWebAPI.Controllers
         [HttpPost]
         public int PostGame()
         {
-            int gameID = _games.GetAllGameIds().Max() + 1;
-            _games.CreateGame(gameID);
+            int gameId = 0;
 
-            return gameID;
+            if (_games.GetAllGameIds().Count() > 0)
+            {
+                gameId = _games.GetAllGameIds().Max() + 1;
+            }
+
+            _games.CreateGame(gameId);
+
+            return gameId;
         }
+
+
 
         // GET: api/Game
         /// <summary>
@@ -79,7 +87,7 @@ namespace LudoWebAPI.Controllers
                 State = game.GetGameState().ToString()
             };
         }
-        
+
         /// <summary>
         /// ändrar spelpjäsens position
         /// </summary>
@@ -96,28 +104,28 @@ namespace LudoWebAPI.Controllers
 
         [HttpGet("{gameId}/players/{playerId}")]
         public Player GetPlayerDetails(int gameId, int playerId)
-            {
+        {
             return _games.GetGame(gameId).GetPlayers().FirstOrDefault(x => x.PlayerId == playerId);
-            }
+        }
 
         [HttpPut("{gameId}/players/{playerId}")]
         public Player UpdatePlayer(int gameId, int playerId, string name, PlayerColor color)
-            {
-   
+        {
+
             Player player = _games.GetGame(gameId).GetPlayers().FirstOrDefault(x => x.PlayerId == playerId);
             player.Name = name;
             player.PlayerColor = color;
             return player;
-            }
-
-
-        [HttpDelete("{gameId}/players/{playerId}")]
-        public bool DeletePlayer(string gameId, int playerId)
-            {
-            throw new NotImplementedException();
-            //var player = _games.GetGame(gameId).GetPlayers().FirstOrDefault(x => x.PlayerId == playerId);
-            //return _games.GetGame(gameId).GetPlayers().Remove(player);
         }
+
+        //Får inte denna att funka.
+        /*[HttpDelete("{gameId}/players/{playerId}")]
+        public bool DeletePlayer(int gameId, int playerId)
+            {
+            string sGameId = gameId.ToString();
+            var player = _games.GetGame(gameId).GetPlayers().FirstOrDefault(x => x.PlayerId == playerId);
+            return _games.GetGame(gameId).GetPlayers().Remove(player);*/
+
 
 
         // GET: api/Player
@@ -150,8 +158,7 @@ namespace LudoWebAPI.Controllers
                 return BadRequest("Unable to add player");
             }
         }
-
-        private PlayerColor ParseColor(string color)
+        public PlayerColor ParseColor(string color)
         {
             switch (color.Trim().ToLower())
             {
@@ -163,4 +170,4 @@ namespace LudoWebAPI.Controllers
             throw new Exception($"Color {color} is unknown, the suported colors are: red, green, blue and yellow");
         }
     }
-    }
+}

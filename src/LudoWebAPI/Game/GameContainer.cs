@@ -17,6 +17,7 @@ namespace LudoWebAPI.Game
 
         public LudoGame this[int gameId]
         {
+
             get
             {
                 if (!games.ContainsKey(gameId))
@@ -48,11 +49,17 @@ namespace LudoWebAPI.Game
 
         public LudoGame GetGame(int gameId)
         {
-            if (!games.ContainsKey(gameId))
-            {
-                games.Add(gameId, new LudoGame(new Diece()));
-            }
-            return games[gameId];
+                if (!games.ContainsKey(gameId))
+                {
+                    games.Add(gameId, new LudoGame(new Diece()));
+                }
+
+                return games[gameId];
+        }
+
+        public bool DeleteGameSession(int id)
+        {
+            return games.Remove(id);
         }
 
     }
